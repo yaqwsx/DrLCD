@@ -319,6 +319,8 @@
  * M997 - Perform in-application firmware update
  * M999 - Restart after being stopped by error
  *
+ * M5500 - Read luminosity data
+ *
  * D... - Custom Development G-code. Add hooks to 'gcode_D.cpp' for developers to test features. (Requires MARLIN_DEV_MODE)
  *        D576 - Set buffer monitoring options. (Requires BUFFER_MONITORING)
  *
@@ -1239,6 +1241,12 @@ private:
   #if ENABLED(CONTROLLER_FAN_EDITABLE)
     static void M710();
     static void M710_report(const bool forReplay=true);
+  #endif
+
+  #if ENABLED(DRLCD)
+    static void M5500();
+    static void M5501();
+    static void M6000();
   #endif
 
   static void T(const int8_t tool_index);

@@ -1,3 +1,13 @@
+# DrLCD Firmware
+
+The firmware for control board is based on Marlin 2.1.x. This subdirectory
+contains the firmware with all the necessary changes applied.
+
+What follows is the original Marlin readme:
+
+<hr/>
+
+
 <p align="center"><img src="buildroot/share/pixmaps/logo/marlin-outrun-nf-500.png" height="250" alt="MarlinFirmware's logo" /></p>
 
 <h1 align="center">Marlin 3D Printer Firmware</h1>

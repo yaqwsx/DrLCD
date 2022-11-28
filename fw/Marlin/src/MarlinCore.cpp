@@ -252,6 +252,10 @@
   #include "tests/marlin_tests.h"
 #endif
 
+#if ENABLED(DRLCD)
+  #include "feature/drlcd/drlcd.h"
+#endif
+
 PGMSTR(M112_KILL_STR, "M112 Shutdown");
 
 MarlinState marlin_state = MF_INITIALIZING;
@@ -1528,6 +1532,10 @@ void setup() {
 
   #if ENABLED(I2C_POSITION_ENCODERS)
     SETUP_RUN(I2CPEM.init());
+  #endif
+
+  #if ENABLED(DRLCD)
+    SETUP_RUN(DR_LCD.init());
   #endif
 
   #if ENABLED(EXPERIMENTAL_I2CBUS) && I2C_SLAVE_ADDRESS > 0
