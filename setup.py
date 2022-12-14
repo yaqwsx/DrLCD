@@ -27,13 +27,12 @@ setuptools.setup(
         "pyserial~=3.5",
         "opencv-python~=4.6",
         "scipy~=1.9",
-        "pygame~=2.1"
+        "pygame~=2.1",
+        "plotly~=5.11"
     ],
     extras_require={
         "dev": ["pytest"],
     },
-    zip_safe=False,
-    include_package_data=True,
     entry_points = {
         "console_scripts": [
             "drlcd=drlcd.ui:cli",
