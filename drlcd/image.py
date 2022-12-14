@@ -14,7 +14,6 @@ def normalizeData(data: List[List[float]], lowThreshold=0) -> List[List[float]]:
     max = np.max(npArray)
     npArray = np.clip(npArray, lowThreshold, max)
     npArray[npArray == lowThreshold] = None
-    # npArray = gaussian_filter(npArray, sigma=0.75)
     return npArray.tolist()
 
 @click.command()
@@ -32,7 +31,6 @@ def visualize(input, output, title, show, threshold):
     data = normalizeData(measurement["measurements"], lowThreshold=threshold)
     fig = go.Figure(data=[go.Surface(z=data)])
     fig.update_layout(title=title, autosize=True,
-                  width=1500, height=900,
                   scene_aspectmode="manual", scene_aspectratio=dict(x=1, y=measurement["resolution"][1]/measurement["resolution"][0], z=0.1))
     fig.write_html(output)
     if show:
