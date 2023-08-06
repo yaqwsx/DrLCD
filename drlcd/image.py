@@ -9,11 +9,38 @@ import itertools
 from scipy.ndimage.filters import gaussian_filter
 from .ui_common import Resolution
 
+def replacePeaks(arr: np.array, threshold: float, windowSize: int):
+    """
+    Given an array and threshold, replace peaks with local average of
+    windowSize×windowSize.
+    """
+    result = np.copy(arr)
+    height, width = arr.shape
+
+    halfWindow = windowSize // 2
+
+    for i in range(halfWindow, height - halfWindow):
+        for j in range(halfWindow, width - halfWindow):
+            if arr[i, j] > threshold:
+                localWindow = arr[i - halfWindow: i + halfWindow + 1, j - halfWindow: j + halfWindow + 1]
+                localWindowWithoutPeak = localWindow[localWindow != arr[i, j]]
+                localAverage = np.mean(localWindowWithoutPeak)
+                result[i, j] = localAverage
+
+    return result
+
+
 def normalizeData(data: List[List[float]], lowThreshold=0) -> List[List[float]]:
     npArray = np.array(data)
+
+    # There are often faulty peaks in the source data, let's filter them out
+    mean = np.mean(npArray)
+    npArray = replacePeaks(npArray, 1.5 * mean, 3)
+
     max = np.max(npArray)
     npArray = np.clip(npArray, lowThreshold, max)
     npArray[npArray == lowThreshold] = None
+
     return npArray.tolist()
 
 @click.command()
