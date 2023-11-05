@@ -147,7 +147,7 @@ def conservativeMeasurement(machine: Machine, size: Tuple[int, int],
             machine.command(command)
             machine.command("M400", timeout=15)
             rawData = machine.command(sensor.directCommand)
-            data = sensor.interpret(rawData)
+            data = sensor.interpret(rawData[0])
             print(f"{x}, {y}: {data}")
             row[x] = data
         measurements.append(row)
